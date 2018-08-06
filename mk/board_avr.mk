@@ -18,14 +18,14 @@ DEPFLAGS        =   -MD -MT $@
 CXXOPTS         =   -ffunction-sections -fdata-sections -fno-exceptions -fsigned-char -fno-use-cxa-atexit
 COPTS           =   -ffunction-sections -fdata-sections -fsigned-char
 
-ASOPTS          =   -x assembler-with-cpp 
+ASOPTS          =   -x assembler-with-cpp
 LISTOPTS        =   -adhlns=$(@:.o=.lst)
 
 NATIVE_CPUFLAGS     = -D_GNU_SOURCE
 NATIVE_CPULDFLAGS   = -g
 NATIVE_OPTFLAGS     = -O0 -g
 
-AVR_CPUFLAGS        = -mmcu=$(MCU) -mcall-prologues 
+AVR_CPUFLAGS        = -mmcu=$(MCU) -mcall-prologues
 AVR_CPULDFLAGS      = -Wl,-m,avr6
 AVR_OPTFLAGS        = -Os
 
@@ -86,18 +86,19 @@ endif
 
 # Extract needed build parameters from the boardfile
 MCU			:=	$(shell grep $(BOARD).build.mcu $(BOARDFILE) | cut -d = -f 2)
-F_CPU		:=	$(shell grep $(BOARD).build.f_cpu $(BOARDFILE) | cut -d = -f 2)
+#F_CPU		:=	$(shell grep $(BOARD).build.f_cpu $(BOARDFILE) | cut -d = -f 2)
+F_CPU := 16000000
 HARDWARE_CORE :=	$(shell grep $(BOARD).build.core $(BOARDFILE) | cut -d = -f 2)
 UPLOAD_SPEED :=	$(shell grep $(BOARD).upload.speed $(BOARDFILE) | cut -d = -f 2)
 
 # User can define USERAVRDUDEFLAGS = -V in their config.mk to skip verification
-USERAVRDUDEFLAGS ?= 
+USERAVRDUDEFLAGS ?=
 #make sure the avrdude conf file is referenced correctly in cygwin
-ifneq ($(findstring CYGWIN, $(SYSTYPE)),) 
+ifneq ($(findstring CYGWIN, $(SYSTYPE)),)
   USERAVRDUDEFLAGS := -C $(ARDUINO)/hardware/tools/avr/etc/avrdude.conf
 endif
 #make sure the avrdude conf file is referenced correctly in mingw
-ifneq ($(findstring MINGW, $(SYSTYPE)),) 
+ifneq ($(findstring MINGW, $(SYSTYPE)),)
   USERAVRDUDEFLAGS := -C $(ARDUINO)/hardware/tools/avr/etc/avrdude.conf
 endif
 #make sure the avrdude conf file is referenced correctly in darwin
@@ -116,10 +117,10 @@ ifeq ($(BOARD),mega)
 endif
 
 #On Cygwin, the wiring programmer will perform the DTR reset for us
-ifneq ($(findstring CYGWIN, $(SYSTYPE)),) 
+ifneq ($(findstring CYGWIN, $(SYSTYPE)),)
   UPLOAD_PROTOCOL	:=	wiring
 endif
- 
+
 ifeq ($(MCU),)
 $(error ERROR: Could not locate board $(BOARD) in $(BOARDFILE))
 endif

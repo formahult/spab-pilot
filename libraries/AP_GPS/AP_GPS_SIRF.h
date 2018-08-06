@@ -97,7 +97,7 @@ private:
     // Message buffer
     union {
         sirf_geonav nav;
-        uint8_t bytes[];
+        uint8_t bytes[128];
     } _buffer;
 
     bool        _parse_gps(void);

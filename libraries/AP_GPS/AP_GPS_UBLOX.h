@@ -308,7 +308,7 @@ private:
         ubx_rxm_raw rxm_raw;
         ubx_rxm_rawx rxm_rawx;
 #endif
-        uint8_t bytes[];
+        uint8_t bytes[128];
     } _buffer;
 
     enum ubs_protocol_bytes {
