@@ -1,4 +1,4 @@
-#ArduPilot Project#
+# ArduPilot Project
 
 ### Modified to support older APM2 version ###
 
