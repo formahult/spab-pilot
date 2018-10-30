@@ -1,4 +1,8 @@
 # ArduPilot Project
+## Build for SPAB Ardupilot
+`cd APMRover2`
+`export PORT=/dev/ttyACM0`
+`make upload`
 
 ### Modified to support older APM2 version ###
 
